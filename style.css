@@ -22,9 +22,11 @@ h1 {
 
 .game-area {
   display: flex;
-  gap: 40px;
+  flex-direction: row;
+  gap: 32px;
   margin-top: 32px;
-  justify-content: center;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
 .character-area {
@@ -39,13 +41,15 @@ h1 {
   align-items: center;
   justify-content: center;
   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  margin-left: 0;
+  margin-right: auto;
 }
 
 #character-base {
   width: 400px;
   height: 600px;
   z-index: 1;
-  background-image: url('assets/body1.png');
+  background-image: url('assets/character.png');
   background-size: cover;
   background-position: center;
 }
@@ -61,7 +65,19 @@ h1 {
 }
 
 .items-area {
-  width: 220px;
+  position: static;
+  right: unset;
+  top: unset;
+  width: 260px;
+  background: #fee2e2;
+  border-radius: 16px;
+  border: 8px solid;
+  border-image: url('assets/border.png') 70 round;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  padding: 24px 16px;
+  z-index: 1;
+  margin-left: 32px;
+  align-self: flex-start;
 }
 
 .items-list {
@@ -164,17 +180,21 @@ h1 {
 }
 
 .menu-btn {
-  padding: 8px 20px;
+  padding: 18px 0;
+  width: 70px;
+  height: 70px;
   border: none;
-  border-radius: 8px;
+  border-radius: 16px;
   background: rgb(211, 144, 144);
   color: #fff;
-  font-size: 1rem;
+  font-size: 1.2rem;
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(0,0,0,0.12);
   transition: background 0.2s;
-  min-width: 90px;
+  min-width: 70px;
+  min-height: 70px;
   display: block;
+  text-align: center;
 }
 
 .menu-btn.active,
