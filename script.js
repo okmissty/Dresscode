@@ -7,11 +7,11 @@ const menuBtns = document.querySelectorAll('.menu-btn');
 const resetBtn = document.getElementById('reset-btn');
 
 const allItems = [
-  { type: 'skin', src: 'assets/skin/character.png', alt: 'Skin' },
-  { type: 'hair', src: 'assets/hair/hair.png', alt: 'Hair' },
-  { type: 'shirt', src: 'assets/shirts/shirt.png', alt: 'Shirt' },
-  { type: 'pants', src: 'assets/bottoms/pants.png', alt: 'Pants' },
-  { type: 'shoes', src: 'assets/shoes/shoes.png', alt: 'Shoes' },
+  { type: 'skin', src: 'assets/character.png', alt: 'Skin' },
+  { type: 'hair', src: 'assets/hair.png', alt: 'Hair' },
+  { type: 'shirt', src: 'assets/shirt.png', alt: 'Shirt' },
+  { type: 'pants', src: 'assets/pants.png', alt: 'Pants' },
+  { type: 'shoes', src: 'assets/shoes.png', alt: 'Shoes' },
   // Add more items as needed
 ];
 
