@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DressCode</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="main-screen" class="main-screen">
+    <h1></h1>
+    <button id="start-btn">Start</button>
+  </div>
+  <div class="container" id="game-container" style="display:none;">
+    <h1></h1>
+    <div class="game-area">
+      <div class="character-area">
+        <img id="character-base" src="assets/skin/character.png" alt="Character" />
+        <div id="dressed-items"></div>
+        <button id="reset-btn">Reset</button>
+      </div>
+      <div class="items-area">
+        <h2></h2>
+        <div class="items-list">
+          <img class="draggable-item" src="assets/shirts/shirt.png" alt="Shirt" draggable="true" data-type="shirt" />
+          <img class="draggable-item" src="assets/bottoms/pants.png" alt="Pants" draggable="true" data-type="pants" />
+          <img class="draggable-item" src="assets/hair/hair.png" alt="Hair" draggable="true" data-type="hair" />
+          <img class="draggable-item" src="assets/shoes/shoes.png" alt="Shoes" draggable="true" data-type="shoes" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+  <script>
+    // Main screen logic
+    document.getElementById('start-btn').onclick = function() {
+      document.getElementById('main-screen').style.display = 'none';
+      document.getElementById('game-container').style.display = 'block';
+    };
+  </script>
+</body>
+</html>
