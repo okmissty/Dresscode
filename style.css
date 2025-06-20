@@ -200,4 +200,6 @@ h1 {
 .menu-btn.active,
 .menu-btn:hover {
   background: rgb(158, 85, 85);
+  border: 4px solid;
+  border-image: url('assets/btnHoverBorder.png') 10 round; /* Use your own border image */
 }

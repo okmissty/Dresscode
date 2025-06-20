@@ -8,6 +8,8 @@ const resetBtn = document.getElementById('reset-btn');
 
 const allItems = [
   { type: 'skin', src: 'assets/character.png', alt: 'Skin' },
+  { type: 'skin', src: 'assets/skin1.png', alt: 'Skin' },
+  { type: 'skin', src: 'assets/skin2.png', alt: 'Skin' },
   { type: 'hair', src: 'assets/hair.png', alt: 'Hair' },
   { type: 'shirt', src: 'assets/shirt.png', alt: 'Shirt' },
   { type: 'pants', src: 'assets/pants.png', alt: 'Pants' },
@@ -28,9 +30,18 @@ function showItems(category) {
     img.alt = item.alt;
     img.draggable = true;
     img.dataset.type = item.type;
+    // Store the actual item src for skin
     img.addEventListener('dragstart', e => {
       e.dataTransfer.setData('type', item.type);
+      e.dataTransfer.setData('src', item.src);
     });
+    // Allow click to select skin as well
+    if (item.type === 'skin') {
+      img.addEventListener('click', () => {
+        currentItems['skin'] = item.src;
+        renderDressedItems();
+      });
+    }
     itemsList.appendChild(img);
   });
 }
@@ -55,7 +66,8 @@ characterArea.addEventListener('dragover', e => {
 characterArea.addEventListener('drop', e => {
   e.preventDefault();
   const type = e.dataTransfer.getData('type');
-  const item = allItems.find(i => i.type === type);
+  let src = e.dataTransfer.getData('src');
+  const item = allItems.find(i => i.type === type && (!src || i.src === src));
   if (type && item) {
     currentItems[type] = item.src;
     renderDressedItems();
@@ -64,7 +76,15 @@ characterArea.addEventListener('drop', e => {
 
 function renderDressedItems() {
   dressedItems.innerHTML = '';
+  // Handle skin (base character) separately
+  if (currentItems['skin']) {
+    document.getElementById('character-base').src = currentItems['skin'];
+  } else {
+    document.getElementById('character-base').src = 'assets/character.png';
+  }
+  // Render other dressed items (not skin)
   Object.entries(currentItems).forEach(([type, src]) => {
+    if (type === 'skin') return;
     const img = document.createElement('img');
     img.src = src;
     img.alt = type;
