@@ -12,7 +12,7 @@ body {
   box-shadow: 0 4px 24px rgba(0,0,0,0.08);
   padding: 32px;
   border: 15px solid;
-  border-image: url('assets/border.png') 70 round;
+  border-image: url('assets/border.png') 70 round; /* Use your own border image */
 }
 
 h1 {
@@ -27,32 +27,6 @@ h1 {
   justify-content: center;
 }
 
-.menu-area {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  align-items: flex-end;
-  justify-content: flex-start;
-  margin-right: 24px;
-}
-
-.menu-btn {
-  padding: 12px 18px;
-  border: none;
-  border-radius: 8px;
-  background: #b56576;
-  color: #fff;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background 0.2s;
-  min-width: 90px;
-}
-
-.menu-btn.active,
-.menu-btn:hover {
-  background: #6d597a;
-}
-
 .character-area {
   position: relative;
   width: 400px;
@@ -60,7 +34,7 @@ h1 {
   background: #fcf8ec;
   border-radius: 12px;
   border: 15px solid;
-  border-image: url('assets/border.png') 70 round;
+  border-image: url('assets/border.png') 70 round; /* Use your own border image */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -112,24 +86,6 @@ h1 {
   box-shadow: 0 2px 8px rgba(0,0,0,0.12);
 }
 
-#reset-btn {
-  margin: 16px auto;
-  display: block;
-  padding: 12px 32px;
-  font-size: 1.1rem;
-  border-radius: 10px;
-  border: none;
-  background: rgb(211, 144, 144);
-  color: #fff;
-  cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-  transition: background 0.2s;
-}
-
-#reset-btn:hover {
-  background: rgb(158, 85, 85);
-}
-
 .main-screen {
   position: fixed;
   top: 0;
@@ -175,4 +131,53 @@ h1 {
   outline: none;
   box-shadow: none;
   border: none;
+}
+
+#reset-btn {
+  position: fixed;
+  right: 40px;
+  bottom: 40px;
+  margin: 0;
+  padding: 12px 32px;
+  font-size: 1.1rem;
+  border-radius: 10px;
+  border: none;
+  background: rgb(211, 144, 144);
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  transition: background 0.2s;
+  z-index: 1100;
+}
+
+#reset-btn:hover {
+  background: rgb(158, 85, 85);
+}
+
+.menu-area {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin-right: 24px;
+}
+
+.menu-btn {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 8px;
+  background: rgb(211, 144, 144);
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  transition: background 0.2s;
+  min-width: 90px;
+  display: block;
+}
+
+.menu-btn.active,
+.menu-btn:hover {
+  background: rgb(158, 85, 85);
 }
