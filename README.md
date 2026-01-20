@@ -8,7 +8,7 @@ WIP: DressCode is my mini personal project that I came up with my senior year of
 ### Built With
 Built with HTML, CSS, and JavaScript.
 
-## How to Play
+## How to Play ( 1/20/26 To be revamped as a godot game)
 - Open `index.html` in your browser.
 - Drag clothing and accessory items onto the character to dress them up.
 - Mix and match different items for fun combinations!
