@@ -1,44 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DressCode</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>DressCode · Your little style studio</title><link rel="stylesheet" href="style.css"></head>
 <body>
-  <div id="main-screen" class="main-screen">
-    <h1></h1>
-    <button id="start-btn">Start</button>
-  </div>
-  <div class="container" id="game-container" style="display:none;">
-    <h1></h1>
-    <div class="game-area">
-      <div class="menu-area">
-        <button class="menu-btn" data-category="skin">Skin</button>
-        <button class="menu-btn" data-category="hair">Hair</button>
-        <button class="menu-btn" data-category="shirt">Shirts</button>
-        <button class="menu-btn" data-category="pants">Pants</button>
-        <button class="menu-btn" data-category="shoes">Shoes</button>
-      </div>
-      <div class="character-area">
-        <img id="character-base" src="assets/character.png" alt="Character" />
-        <div id="dressed-items"></div>
-        <button id="reset-btn">Reset</button>
-      </div>
-      <div class="items-area">
-        <h2 id="items-title"></h2>
-        <div class="items-list" id="items-list"></div>
-      </div>
-    </div>
-  </div>
-  <script src="script.js"></script>
-  <script>
-    // Main screen logic
-      document.getElementById('start-btn').onclick = function() {
-      document.getElementById('main-screen').style.display = 'none';
-      document.getElementById('game-container').style.display = 'block';
-    };
-  </script>
-</body>
-</html>
+<section id="main-screen" class="main-screen"><div class="welcome"><p class="eyebrow">A LITTLE FASHION, A LITTLE CODE</p><h1>DressCode</h1><p>Your wardrobe. Your rules.</p><div class="mode-choices"><button id="start-btn"><strong>Style Studio</strong><span>Dress freely. Save your favorite looks.</span></button><button id="story-btn"><strong>Style Stories</strong><span>Themed outfits with little coding adventures.</span></button></div><button id="home-settings-btn" class="quiet">Settings &amp; tutorial</button></div></section>
+<main id="game-container" class="container" hidden>
+<header><div><p class="eyebrow">YOUR LITTLE STYLE STUDIO</p><h1>DressCode <span aria-hidden="true">♡</span></h1></div><div class="header-actions"><button id="settings-btn" class="quiet" aria-haspopup="dialog">Settings</button><button id="home-btn" class="quiet">Home</button></div></header>
+<div class="mode-bar"><span id="mode-label">Style Studio · Freeplay</span><button id="switch-mode-btn" class="quiet">Try Style Stories</button></div>
+<section id="story-panel" class="story-panel" aria-labelledby="story-title" hidden><div class="story-heading"><div><p id="chapter-progress" class="eyebrow"></p><h2 id="story-title" tabindex="-1"></h2></div><span id="story-badge" class="pill"></span></div><p id="story-description"></p><div class="story-columns"><div><h3>Your styling brief</h3><ul id="story-objectives"></ul><p class="hint">Every body type and skin tone is welcome. Pick any pieces unless the brief names one.</p></div><form id="challenge-form"><label for="challenge-code" id="challenge-label"></label><p id="challenge-explanation"></p><textarea id="challenge-code" rows="3" spellcheck="false" autocapitalize="off" autocomplete="off" aria-describedby="challenge-explanation challenge-feedback"></textarea><div class="challenge-actions"><button type="submit">Run code</button><button id="challenge-hint-btn" type="button" class="quiet">Show hint</button></div><p id="challenge-hint" hidden></p><p id="challenge-feedback" role="status" aria-live="polite"></p></form></div><div class="story-controls"><button id="previous-chapter" class="quiet">Previous chapter</button><button id="finish-chapter">Check my outfit</button><button id="next-chapter" hidden>Next chapter →</button></div><p id="story-feedback" role="status" aria-live="polite"></p></section>
+<div class="game-area">
+<section class="studio" aria-label="Outfit preview"><div class="studio-heading"><span>THE FITTING ROOM</span><label>Backdrop <select id="backdrop"><option value="rose">Rose</option><option value="sage">Sage</option><option value="cream">Cream</option></select></label></div><div class="character-area" id="stage"><div class="floor"></div><div class="avatar"><img id="character-base" src="assets/character.png" alt="Character"><div id="dressed-items"></div></div></div><p id="body-note" class="hint" hidden>Body samples use approximate clothing fits until matching artwork is drawn.</p><p class="hint">Tap a piece or drag it into the fitting room.</p><div class="toolbar"><button id="shuffle-btn">Shuffle ✧</button><button id="undo-btn" class="quiet" disabled>Undo</button><button id="reset-btn" class="quiet">Reset</button><button id="export-btn" class="quiet">Download PNG</button></div></section>
+<section class="wardrobe" aria-label="Wardrobe"><div class="panel-heading"><div><p class="eyebrow">MIX, MATCH, MAKE IT YOURS</p><h2>Your wardrobe</h2></div><span id="item-count" class="pill"></span></div><nav class="menu-area" aria-label="Item categories"><button class="menu-btn" data-category="body">Body</button><button class="menu-btn" data-category="skin">Skin</button><button class="menu-btn" data-category="hair">Hair</button><button class="menu-btn" data-category="shirt">Tops</button><button class="menu-btn" data-category="pants">Bottoms</button><button class="menu-btn" data-category="shoes">Shoes</button><button class="menu-btn" data-category="accessory">Extras</button></nav><div class="category-heading"><h3 id="items-title"></h3><button id="remove-btn" class="quiet">Remove piece</button></div><div class="items-list" id="items-list"></div><section class="saved-section"><h3>Your lookbook</h3><form id="save-form"><label class="sr-only" for="look-name">Outfit name</label><input id="look-name" maxlength="32" placeholder="Name this look…" required><button>Save look</button></form><div id="saved-looks"></div></section><details class="code-panel"><summary>Peek at the code <span aria-hidden="true">{ }</span></summary><p>Your outfit is an object: each category is a key, and the chosen piece is its value. Change a piece to watch the values update.</p><pre><code id="outfit-code"></code></pre></details></section>
+</div><p id="status" role="status" aria-live="polite">Welcome to your studio.</p>
+</main>
+<dialog id="settings-dialog" aria-labelledby="settings-title"><div class="dialog-heading"><h2 id="settings-title">Make yourself comfortable</h2><button id="close-settings" class="quiet" aria-label="Close settings">Close</button></div><p>These preferences are saved in this browser. All pieces can be selected with a tap or keyboard—dragging is optional.</p><fieldset><legend>Accessibility</legend><label class="setting"><input type="checkbox" id="setting-contrast"> Higher contrast</label><label class="setting"><input type="checkbox" id="setting-text"> Larger text</label><label class="setting"><input type="checkbox" id="setting-motion"> Reduce motion</label><label class="setting"><input type="checkbox" id="setting-simple"> Simplify backgrounds</label></fieldset><p class="settings-help">Keyboard: Tab to move, Enter or Space to select, and Escape to close this window. Your device’s reduced-motion preference is also respected.</p><button id="tutorial-btn">How to play</button> <button id="reset-settings" class="quiet">Reset preferences</button></dialog><dialog id="tutorial-dialog" aria-labelledby="tutorial-title"><div class="dialog-heading"><div><p id="tutorial-progress" class="eyebrow"></p><h2 id="tutorial-title" tabindex="-1"></h2></div><button id="close-tutorial" class="quiet">Close</button></div><p id="tutorial-content"></p><div class="story-controls"><button id="tutorial-back" class="quiet">Back</button><button id="tutorial-next">Next →</button></div></dialog><script src="script.js"></script>
+</body></html>
