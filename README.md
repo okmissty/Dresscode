@@ -74,3 +74,7 @@ Next ideas: themed styling prompts without appearance-based scoring, a first-pla
 Run code accepts the small grammar described by each lesson, with either single or double quotes and an optional semicolon. It is a guided learning exercise, not a general JavaScript interpreter. No player-supplied code is executed. Hints reveal a working example; there are no timers or appearance scores. Body type and skin tone never affect chapter completion.
 
 Check my outfit requires a solved coding lesson and all brief items. Next chapter unlocks on completion; previous chapters remain replayable. Switching modes preserves the current outfit, and story progress and code drafts are saved in this browser. Settings → How to play opens a replayable six-step tutorial, also reachable from the home screen.
+
+## Reliable artwork loading
+`asset-data.js` embeds the 42 character, clothing, and sample SVG images. Both the fitting room and wardrobe use these self-contained images, including PNG exports, so local-file image restrictions and partial asset-folder copies do not break them. Original editable files remain in `assets/`.
+After changing or adding artwork, run `python tools/build-assets.py` to refresh the embedded copies. This generated file must sit alongside `index.html` and `script.js`. Extract the entire ZIP before opening `index.html`; do not run the page from inside the ZIP preview.

@@ -16,6 +16,8 @@ const catalog = [
   ['shoes','boots','Brown boots','assets/shoes.png'],['shoes','flats','Mary Janes','assets/placeholders/flats.svg'],
   ['accessory','bow','Hair ribbon','assets/placeholders/bow.svg'],['accessory','necklace','Heart necklace','assets/placeholders/necklace.svg']
 ].map(([type,id,name,src])=>({type,id,name,src,placeholder:src.endsWith('.svg')}));
+function assetSource(path){return window.DRESSCODE_ASSETS?.[path] || path;}
+function watchImage(img,path){img.addEventListener('error',()=>{status('An image could not load: '+path+'. Extract the complete game folder before opening index.html.');},{once:true});}
 const $ = id => document.getElementById(id);
 const STORAGE_KEY='dresscode-studio-v1';
 const defaults=()=>({body:'standard',skin:'original'});
@@ -31,11 +33,11 @@ function itemFor(type){return catalog.find(i=>i.type===type&&i.id===outfit[type]
 function baseSource(){return outfit.body==='standard' && ['original','warm','olive'].includes(outfit.skin)?itemFor('skin').src:`assets/placeholders/bodies/${outfit.body}-${outfit.skin}.svg`;}
 function fitScale(src){if(src.includes('eyes')||src.includes('hair')||src.includes('bob')||src.includes('bow'))return 1;return {standard:1,curvy:1.14,broad:1.2}[outfit.body]||1;}
 function render(){
- $('character-base').src=baseSource();
+ $('character-base').src=assetSource(baseSource());
  $('body-note').hidden=outfit.body==='standard';
  $('dressed-items').replaceChildren();
  // Eyes are a permanent face layer; clothing order never depends on click order.
- for(const src of ['assets/eyes.png',...layerOrder.map(type=>itemFor(type)?.src).filter(Boolean)]){const img=document.createElement('img');img.src=src;img.alt='';img.className='dressed-item';img.style.transform=`scaleX(${fitScale(src)})`;$('dressed-items').append(img);}
+ for(const src of ['assets/eyes.png',...layerOrder.map(type=>itemFor(type)?.src).filter(Boolean)]){const img=document.createElement('img');img.src=assetSource(src);watchImage(img,src);img.alt='';img.className='dressed-item';img.style.transform=`scaleX(${fitScale(src)})`;$('dressed-items').append(img);}
  $('stage').dataset.backdrop=backdrop;$('backdrop').value=backdrop;$('undo-btn').disabled=!history.length;
  $('outfit-code').textContent='const outfit = '+JSON.stringify(outfit,null,2)+';';
  showItems(activeCategory);
@@ -53,7 +55,7 @@ function showItems(category){
  const bounds={body:[95,25,210,575],skin:[100,25,200,575],hair:[140,25,120,130],shirt:[115,140,165,120],pants:[120,240,160,140],shoes:[130,445,155,150],accessory:item.id==='bow'?[135,25,125,90]:[150,135,100,65]};
  const [x,y,w,h]=bounds[category];
  const preview=document.createElementNS('http://www.w3.org/2000/svg','svg');preview.setAttribute('viewBox',`${x} ${y} ${w} ${h}`);preview.setAttribute('aria-hidden','true');preview.style.cssText='width:100%;height:98px;display:block';
- const image=document.createElementNS('http://www.w3.org/2000/svg','image');image.setAttribute('href',item.src);image.setAttribute('width','400');image.setAttribute('height','600');preview.append(image);
+ const image=document.createElementNS('http://www.w3.org/2000/svg','image');image.setAttribute('href',assetSource(item.src));image.setAttribute('width','400');image.setAttribute('height','600');preview.append(image);
  const name=document.createElement('span');name.textContent=item.name;btn.append(preview,name);if(item.placeholder){const tag=document.createElement('small');tag.textContent='Sample piece';btn.append(tag);}
  btn.addEventListener('click',()=>equip(item));btn.addEventListener('dragstart',e=>{e.dataTransfer.setData('text/plain',item.id);e.dataTransfer.effectAllowed='copy';});$('items-list').append(btn);}
 }
@@ -72,8 +74,9 @@ $('save-form').onsubmit=e=>{e.preventDefault();const name=$('look-name').value.t
 $('stage').ondragover=e=>{e.preventDefault();$('stage').classList.add('drag-over');};
 $('stage').ondragleave=()=> $('stage').classList.remove('drag-over');
 $('stage').ondrop=e=>{e.preventDefault();$('stage').classList.remove('drag-over');const item=catalog.find(i=>i.id===e.dataTransfer.getData('text/plain'));if(item)equip(item);};
-async function loadImage(src){return new Promise((resolve,reject)=>{const img=new Image();img.onload=()=>resolve(img);img.onerror=reject;img.src=src;});}
+async function loadImage(src){return new Promise((resolve,reject)=>{const img=new Image();img.onload=()=>resolve(img);img.onerror=reject;img.src=assetSource(src);});}
 $('export-btn').onclick=async()=>{const button=$('export-btn');button.disabled=true;status('Preparing your outfit…');try{const sources=[baseSource(),'assets/eyes.png',...layerOrder.map(type=>itemFor(type)?.src).filter(Boolean)];const images=await Promise.all(sources.map(loadImage));const canvas=document.createElement('canvas');canvas.width=400;canvas.height=600;const ctx=canvas.getContext('2d');ctx.fillStyle={rose:'#f5dcd8',sage:'#d9e3d4',cream:'#eedeb9'}[backdrop];ctx.fillRect(0,0,400,600);images.forEach((img,index)=>{const scale=index===0?1:fitScale(sources[index]);ctx.save();ctx.translate(200,0);ctx.scale(scale,1);ctx.drawImage(img,-200,0,400,600);ctx.restore();});const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/png'));if(!blob)throw Error('Export failed');const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='dresscode-outfit.png';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);status('Your outfit is ready to keep.');}catch{status('Could not download the outfit. Try running the game through a local web server.');}finally{button.disabled=false;}};
+watchImage($('character-base'),'character artwork');
 render();renderLooks();
 
 const SETTINGS_KEY='dresscode-accessibility-v1';
